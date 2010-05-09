@@ -38,17 +38,17 @@ body {
     display: block;
     top: 0px;
     left: 0px;
-    bottom: 0px;
     right: 0px;
     width: auto;
+    bottom: 0px;
     height: auto;
 }
 
 #done {
     position: absolute;
-    right: 21px;
-    bottom: 21px;
+    right: 83px;
     margin-left: auto;
+    bottom: 99px;
     margin-top: auto;
 }
 
@@ -133,9 +133,9 @@ body {
     color: black;
     font-family: HelveticaNeue;
     font-size: 10pt;
-    top: 36px;
-    width: 146px;
-    left: 40px;
+    top: 37px;
+    width: 166px;
+    left: 20px;
     margin-right: auto;
 }
 
@@ -145,8 +145,8 @@ body {
     font-family: HelveticaNeue;
     font-size: 10pt;
     top: 77px;
-    left: 40px;
-    width: 146px;
+    width: 166px;
+    left: 20px;
     margin-right: auto;
 }
 
@@ -218,5 +218,48 @@ body {
 }
 
 .selected #progressText {
+    color: white;
+}
+
+#text2 {
+    font-size: 13px;
+    font-family: 'Lucida Grande', Arial, sans-serif;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    position: absolute;
+    margin-top: 0px;
+    left: 20px;
+    top: 179px;
+    color: rgb(192, 192, 192);
+    right: 22px;
+    width: auto;
+    bottom: 37px;
+    height: auto;
+    text-align: center;
+}
+
+.selected #text2 {
+    color: white;
+}
+
+#text3 {
+    font-size: 13px;
+    font-family: 'Lucida Grande', Arial, sans-serif;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    position: absolute;
+    margin-top: 0px;
+    right: 71px;
+    min-height: 17px;
+    top: 196px;
+    left: 20px;
+    color: rgb(190, 190, 190);
+    width: 172px;
+    bottom: 21px;
+    height: auto;
+    text-align: center;
+}
+
+.selected #text3 {
     color: white;
 }
