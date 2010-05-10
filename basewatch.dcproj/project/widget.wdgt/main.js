@@ -10,6 +10,7 @@ var finishedSecondsPrefKey = dashcode.createInstancePreferenceKey("finished-seco
 var timerStartPrefKey = dashcode.createInstancePreferenceKey("timer-start");
 var apiURLPrefKey = dashcode.createInstancePreferenceKey("api-url");
 var apiTokenPrefKey = dashcode.createInstancePreferenceKey("api-token");
+var projectNamePrefKey = dashcode.createInstancePreferenceKey("project-name");
 
 var progressLevelOff = 0;
 var progressLevelOn = 1;
@@ -138,6 +139,8 @@ function updateSubmitButton()
 
 function projectsPopupChanged()
 {
+    var projectsPopup = document.getElementById('projectsPopup').object;
+    widget.setPreferenceForKey( projectsPopup.getValue(), projectNamePrefKey );
     updateSubmitButton();
 }
 
@@ -159,9 +162,19 @@ function populateProjects()
             if ( result )
             {
                 options = ['(select a project)'];
+                var index = 1;
+                var selectedIndex = 0;
+                var persistedName = widget.preferenceForKey(projectNamePrefKey);
                 for ( var i in api.projects )
-                    options.push( BasecampAPI.projects[i]['name'] );
-                projectPopups.setOptions( options );
+                {
+                    var name = BasecampAPI.projects[i]['name'];
+                    options.push(name);
+                    if ( name == persistedName )
+                        selectedIndex = index;
+                    ++index;
+                }
+                projectPopups.setOptions(options);
+                projectPopups.setSelectedIndex(selectedIndex);
                 setProgress( progressLevelOn, "Logged in." );
             }
             else
