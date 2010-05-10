@@ -14,7 +14,7 @@ var dashcodePartSpecs = {
     "submitButton": { "creationFunction": "CreateButton", "disabled": true, "leftImageWidth": 5, "onclick": "submitButtonClicked", "rightImageWidth": 5, "text": "Submit" },
     "text": { "text": "Basecamp URL:", "view": "DC.Text" },
     "text1": { "text": "Basecamp API Token:", "view": "DC.Text" },
-    "text2": { "text": "Basewatch 1.0", "view": "DC.Text" },
+    "text2": { "text": "Basewatch 1.1", "view": "DC.Text" },
     "text3": { "text": "Copyright 2010 Peter Zion", "view": "DC.Text" }
 };
 
