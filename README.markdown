@@ -1,7 +1,7 @@
 # Introduction #
 
 This is Basewatch, a Mac OS X Dashboard widget for time tracking on
-37signal's Basecamp project mamangement system.
+37signals' Basecamp project mamangement system.
 
 # Installation #
 
