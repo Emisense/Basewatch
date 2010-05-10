@@ -22,11 +22,11 @@ from the pop-up list of projects, type in a comment for the time and click "Subm
 
 # Change History #
 - Version 1.1 - 2010-05-10
-  > Display time in "HMS" format and allow very flexible manual entry of time using same format
-  > Persist selected project in case of crash or re-login
-  > Cosmetic changes
+  >  - Display time in "HMS" format and allow very flexible manual entry of time using same format
+  >  - Persist selected project in case of crash or re-login
+  >  - Cosmetic changes
 - Version 1.0 - 2010-05-08
-  > Initial version
+  >  - Initial version
 
 # Author #
 
