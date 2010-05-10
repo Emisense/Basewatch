@@ -356,26 +356,29 @@ function parseTimerTextField( value )
 {
     var seconds = 0;
     var reg = 0;
+    var exp = -1;
     for ( var i=0; i<value.length; ++i )
     {
         var char = value.charAt(i);
         var index = "0123456789".indexOf(char);
         if ( index >= 0 )
+        {
             reg = 10*reg + index;
-        else if ( char == 'h' )
-        {
-            seconds += 3600*reg;
-            reg = 0;
+            if ( exp != -1 )
+                ++exp;
         }
-        else if ( char == 'm' )
+        else if ( char == '.' )
         {
-            seconds += 60 * reg;
-            reg = 0;
+            exp = 0;
         }
-        else if ( char == 's' )
+        else if ( "hms".indexOf(char) != -1 )
         {
-            seconds += reg;
+            var mult = { 'h':3600, 'm':60, 's':1 }[char];
+            if ( exp == -1 )
+                exp = 0;
+            seconds += Math.round(mult*reg*Math.pow(10,-exp));
             reg = 0;
+            exp = -1;
         }
     }
     return seconds;
@@ -384,6 +387,8 @@ function parseTimerTextField( value )
 
 function changeTimerTextField(event)
 {
+    setFinishedSeconds( parseTimerTextField( timerTextField.value ) );
+    updateTimer();
     if ( !isTimerRunning() )
     {
         startTimer();
