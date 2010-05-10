@@ -235,7 +235,7 @@ function formatSeconds( totalSeconds )
     var hours = Math.floor( totalSeconds / 3600 );
     var minutes = Math.floor( (totalSeconds - 3600*hours) / 60);
     var seconds = Math.floor( totalSeconds - 3600*hours - 60*minutes );
-    return formatHMS(hours)+':'+formatHMS(minutes)+':'+formatHMS(seconds);
+    return formatHMS(hours)+'h'+formatHMS(minutes)+'m'+formatHMS(seconds)+'s';
 }
 var timerTimeout;
 
@@ -354,7 +354,31 @@ function clickTimerTextField(event)
 
 function parseTimerTextField( value )
 {
-    return parseInt(value.substring(6,8)) + 60*(parseInt(value.substring(3,5)) + 60*parseInt(value.substring(0,2)));
+    var seconds = 0;
+    var reg = 0;
+    for ( var i=0; i<value.length; ++i )
+    {
+        var char = value.charAt(i);
+        var index = "0123456789".indexOf(char);
+        if ( index >= 0 )
+            reg = 10*reg + index;
+        else if ( char == 'h' )
+        {
+            seconds += 3600*reg;
+            reg = 0;
+        }
+        else if ( char == 'm' )
+        {
+            seconds += 60 * reg;
+            reg = 0;
+        }
+        else if ( char == 's' )
+        {
+            seconds += reg;
+            reg = 0;
+        }
+    }
+    return seconds;
 }
 
 

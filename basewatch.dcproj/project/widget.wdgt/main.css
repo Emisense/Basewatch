@@ -14,8 +14,8 @@ body {
     top: 0px;
     left: 0px;
     right: 0px;
-    bottom: 8px;
     width: auto;
+    bottom: 8px;
     height: auto;
 }
 
@@ -39,16 +39,16 @@ body {
     top: 0px;
     left: 0px;
     right: 0px;
-    width: auto;
     bottom: 0px;
+    width: auto;
     height: auto;
 }
 
 #done {
     position: absolute;
-    right: 83px;
+    right: 95px;
     margin-left: auto;
-    bottom: 99px;
+    bottom: 100px;
     margin-top: auto;
 }
 
@@ -64,9 +64,9 @@ body {
     -webkit-border-bottom-right-radius: 0px 0px;
     left: 20px;
     text-align: center;
-    width: 100px;
+    width: 125px;
     margin-right: auto;
-    top: 20px;
+    top: 21px;
     margin-bottom: auto;
 }
 
@@ -79,8 +79,8 @@ body {
     -khtml-user-select: none;
     position: absolute;
     margin-top: 0px;
-    height: 22px;
-    top: 28px;
+    top: 23px;
+    height: 35px;
     right: 22px;
     margin-left: auto;
     margin-bottom: auto;
@@ -134,8 +134,8 @@ body {
     font-family: HelveticaNeue;
     font-size: 10pt;
     top: 37px;
-    width: 166px;
     left: 20px;
+    width: 192px;
     margin-right: auto;
 }
 
@@ -145,8 +145,8 @@ body {
     font-family: HelveticaNeue;
     font-size: 10pt;
     top: 77px;
-    width: 166px;
     left: 20px;
+    width: 192px;
     margin-right: auto;
 }
 
@@ -158,7 +158,7 @@ body {
     margin-top: 0px;
     left: 20px;
     height: 20px;
-    top: 71px;
+    top: 73px;
     margin-bottom: auto;
     right: 22px;
     width: auto;
@@ -168,7 +168,6 @@ body {
     color: black;
     font-family: HelveticaNeue;
     font-size: 10pt;
-    width: 170px;
     -khtml-margin-top-collapse: separate;
     -khtml-margin-bottom-collapse: separate;
     display: block;
@@ -176,7 +175,8 @@ body {
     position: absolute;
     left: 20px;
     right: auto;
-    top: 97px;
+    width: 196px;
+    top: 99px;
 }
 
 #submitButton {
@@ -188,8 +188,8 @@ body {
     -khtml-user-select: none;
     position: absolute;
     height: 22px;
-    left: 78px;
-    top: 160px;
+    left: 89px;
+    top: 162px;
     margin-bottom: auto;
 }
 
@@ -248,16 +248,15 @@ body {
     text-overflow: ellipsis;
     overflow: hidden;
     position: absolute;
-    margin-top: 0px;
-    right: 71px;
     min-height: 17px;
-    top: 196px;
     left: 20px;
     color: rgb(190, 190, 190);
-    width: 172px;
-    bottom: 21px;
-    height: auto;
     text-align: center;
+    height: 17px;
+    bottom: 21px;
+    margin-top: auto;
+    right: 22px;
+    width: auto;
 }
 
 .selected #text3 {
