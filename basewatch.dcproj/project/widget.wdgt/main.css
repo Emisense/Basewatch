@@ -39,8 +39,8 @@ body {
     top: 0px;
     left: 0px;
     right: 0px;
-    bottom: 0px;
     width: auto;
+    bottom: 0px;
     height: auto;
 }
 
@@ -48,7 +48,7 @@ body {
     position: absolute;
     right: 22px;
     margin-left: auto;
-    bottom: 101px;
+    bottom: 21px;
     margin-top: auto;
 }
 
@@ -229,13 +229,13 @@ body {
     position: absolute;
     margin-top: 0px;
     left: 20px;
-    top: 179px;
     color: rgb(192, 192, 192);
+    text-align: center;
+    top: 114px;
     right: 22px;
     width: auto;
-    bottom: 37px;
+    bottom: 102px;
     height: auto;
-    text-align: center;
 }
 
 .selected #text2 {
@@ -253,7 +253,7 @@ body {
     color: rgb(190, 190, 190);
     text-align: center;
     height: 17px;
-    bottom: 21px;
+    bottom: 84px;
     margin-top: auto;
     right: 22px;
     width: auto;
