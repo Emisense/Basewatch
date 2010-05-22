@@ -10,7 +10,7 @@ var finishedSecondsPrefKey = dashcode.createInstancePreferenceKey("finished-seco
 var timerStartPrefKey = dashcode.createInstancePreferenceKey("timer-start");
 var apiURLPrefKey = dashcode.createInstancePreferenceKey("api-url");
 var apiTokenPrefKey = dashcode.createInstancePreferenceKey("api-token");
-var projectNamePrefKey = dashcode.createInstancePreferenceKey("project-name");
+var projectIdPrefKey = dashcode.createInstancePreferenceKey("project-id");
 
 var progressLevelOff = 0;
 var progressLevelOn = 1;
@@ -140,7 +140,7 @@ function updateSubmitButton()
 function projectsPopupChanged()
 {
     var projectsPopup = document.getElementById('projectsPopup').object;
-    widget.setPreferenceForKey( projectsPopup.getValue(), projectNamePrefKey );
+    widget.setPreferenceForKey( projectsPopup.getValue(), projectIdPrefKey );
     updateSubmitButton();
 }
 
@@ -151,8 +151,13 @@ function commentTextareaChanged()
 
 function populateProjects()
 {
-    var projectPopups = document.getElementById('projectsPopup').object;
-    projectPopups.setOptions([]);
+    var projectsPopup = document.getElementById('projectsPopup').object;
+    var projectsSelect = document.getElementById('projectsPopup').lastElementChild;
+    if ( projectsSelect.hasChildNodes() )
+    {
+        while ( projectsSelect.childNodes.length >= 1 )
+            projectsSelect.removeChild( projectsPopup.firstChild );       
+    }
     var apiURL = document.getElementById('apiURLTextField').value;
     var apiToken = document.getElementById('apiTokenTextField').value;
     if ( apiURL != '' && apiToken != '' )
@@ -161,25 +166,42 @@ function populateProjects()
         BasecampAPI.login( apiURL, apiToken, function( api, result ) {
             if ( result )
             {
-                options = ['(select a project)'];
+                var option = document.createElement("option");
+                option.text = '(select a project)';
+                option.value = null;
+                option.disabled = true;
+                projectsSelect.appendChild(option);
                 var index = 1;
                 var selectedIndex = 0;
-                var persistedName = widget.preferenceForKey(projectNamePrefKey);
+                var persistedProjectId = widget.preferenceForKey(projectIdPrefKey);
                 for ( var companyId in api.companies )
                 {
                     var company = api.companies[companyId];
+                    var haveCompanyOption = false;
                     for ( var projectId in company.projects )
                     {  
+                        /*
+                        if ( !haveCompanyOption )
+                        {
+                            var comapnyOption = document.createElement("option");
+                            comapnyOption.text = company.name;
+                            comapnyOption.value = null;
+                            comapnyOption.disabled = true;
+                            projectsSelect.appendChild(comapnyOption);
+                            haveCompanyOption = true;
+                        }
+                        */
                         var project = company.projects[projectId];
-                        var name = project.name;
-                        options.push(name);
-                        if ( name == persistedName )
+                        var option = document.createElement("option");
+                        option.text = company.name+" - "+project.name;
+                        option.value = project.id;
+                        projectsSelect.appendChild(option);
+                        if ( project.id == persistedProjectId )
                             selectedIndex = index;
                         ++index;
                     }
                 }
-                projectPopups.setOptions(options);
-                projectPopups.setSelectedIndex(selectedIndex);
+                projectsPopup.setSelectedIndex(selectedIndex);
                 setProgress( progressLevelOn, "Logged in." );
             }
             else
@@ -418,8 +440,7 @@ function submitButtonClicked(event)
 {
     var seconds = totalSeconds();
     var comment = document.getElementById('commentTextarea').value;
-    var projectName = document.getElementById('projectsPopup').object.getValue();
-    var projectId = BasecampAPI.projectNameToId(projectName);
+    var projectId = document.getElementById('projectsPopup').object.getValue();
     if ( seconds > 0 && comment.length > 0 && projectId )
     {
         stopTimer();

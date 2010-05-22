@@ -151,7 +151,6 @@ body {
 }
 
 #projectsPopup {
-    font-family: HelveticaNeue-Bold;
     font-size: 12px;
     text-align: left;
     position: absolute;
@@ -162,6 +161,7 @@ body {
     margin-bottom: auto;
     right: 22px;
     width: auto;
+    font-family: HelveticaNeue-CondensedBold;
 }
 
 #commentTextarea {

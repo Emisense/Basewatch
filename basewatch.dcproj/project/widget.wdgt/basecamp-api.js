@@ -77,10 +77,10 @@ var BasecampAPI =
                 api.companies[id] = { id:id, name:name, projects:{} };
             }
             var projectsURL = api.url+'/projects.xml';
-            var xhr = new XMLHttpRequest();
-            xhr.onload = function()
+            var projectXHR = new XMLHttpRequest();
+            projectXHR.onload = function()
             {
-                var responseXML = xhr.responseXML;
+                var responseXML = projectXHR.responseXML;
                 for ( var childNodeIdx in responseXML.firstChild.childNodes )
                 {
                     var childNode = responseXML.firstChild.childNodes[childNodeIdx];
@@ -114,15 +114,15 @@ var BasecampAPI =
                 }
                 callback( api, true );
             };
-            xhr.onerror = xhr.onabort = function( event )
+            projectXHR.onerror = projectXHR.onabort = function( event )
             {
                 callback( api, false );
             };
-            xhr.open( 'GET', projectsURL, true, api.token, 'X' );
-            xhr.setRequestHeader( "Cache-Control", "no-cache" );
-            xhr.setRequestHeader( 'Accept', 'application/xml' );
-            xhr.setRequestHeader( 'Content-Type', 'application/xml' );
-            xhr.send(null);
+            projectXHR.open( 'GET', projectsURL, true, api.token, 'X' );
+            projectXHR.setRequestHeader( "Cache-Control", "no-cache" );
+            projectXHR.setRequestHeader( 'Accept', 'application/xml' );
+            projectXHR.setRequestHeader( 'Content-Type', 'application/xml' );
+            projectXHR.send(null);
         };
         xhr.onerror = xhr.onabort = function( event )
         {
@@ -133,21 +133,6 @@ var BasecampAPI =
         xhr.setRequestHeader( 'Accept', 'application/xml' );
         xhr.setRequestHeader( 'Content-Type', 'application/xml' );
         xhr.send(null);
-    },
-    
-    projectNameToId: function( name )
-    {
-        for ( var companyId in this.companies )
-        {
-            var company = this.companies[companyId];
-            for ( var projectId in company.projects )
-            {
-                var project = this.projects[id];
-                if ( project.name == name )
-                    return project.id;
-            }
-        }
-        return null;
     },
 
     submitTime: function( projectId, seconds, comment, callback )
