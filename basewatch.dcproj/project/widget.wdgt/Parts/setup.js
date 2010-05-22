@@ -6,6 +6,7 @@
  */
 var dashcodePartSpecs = {
     "done": { "creationFunction": "CreateGlassButton", "onclick": "showFront", "text": "Done" },
+    "glassButton": { "creationFunction": "CreateGlassButton", "onclick": "homepageClicked", "text": "Visit Homepage" },
     "info": { "backgroundStyle": "black", "creationFunction": "CreateInfoButton", "foregroundStyle": "white", "frontID": "front", "onclick": "showBack" },
     "progressIndicator": { "criticalValue": 15, "onValue": 1, "view": "DC.Indicator", "warningValue": 10 },
     "progressText": { "view": "DC.Text" },
@@ -14,9 +15,10 @@ var dashcodePartSpecs = {
     "submitButton": { "creationFunction": "CreateButton", "disabled": true, "leftImageWidth": 5, "onclick": "submitButtonClicked", "rightImageWidth": 5, "text": "Submit" },
     "text": { "text": "Basecamp URL:", "view": "DC.Text" },
     "text1": { "text": "Basecamp API Token:", "view": "DC.Text" },
-    "text2": { "text": "Basewatch 1.2-pre", "view": "DC.Text" },
-    "text3": { "text": "Copyright 2010 Peter Zion", "view": "DC.Text" }
+    "text2": { "text": "Basewatch 1.2.0", "view": "DC.Text" },
+    "text3": { "text": "Copyright © 2010 Peter Zion", "view": "DC.Text" }
 };
+
 
 
 

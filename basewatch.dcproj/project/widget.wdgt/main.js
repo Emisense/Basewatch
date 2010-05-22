@@ -159,11 +159,8 @@ function populateProjects()
 {
     var projectsPopup = document.getElementById('projectsPopup').object;
     var projectsSelect = document.getElementById('projectsPopup').lastElementChild;
-    if ( projectsSelect.hasChildNodes() )
-    {
-        while ( projectsSelect.childNodes.length >= 1 )
-            projectsSelect.removeChild( projectsPopup.firstChild );       
-    }
+    while ( projectsSelect.childNodes.length >= 1 )
+        projectsSelect.removeChild( projectsSelect.firstChild );       
     var apiURL = document.getElementById('apiURLTextField').value;
     var apiToken = document.getElementById('apiTokenTextField').value;
     if ( apiURL != '' && apiToken != '' )
@@ -466,4 +463,10 @@ function submitButtonClicked(event)
             updateSubmitButton();
         } );
     }
+}
+
+
+function homepageClicked(event)
+{
+    widget.openURL('http://pzion.github.com/Basewatch/');
 }

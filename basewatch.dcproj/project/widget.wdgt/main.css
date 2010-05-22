@@ -262,3 +262,14 @@ body {
 .selected #text3 {
     color: white;
 }
+
+#glassButton {
+    cursor: default;
+    -khtml-user-select: none;
+    position: absolute;
+    right: auto;
+    bottom: auto;
+    margin-top: 0px;
+    top: 153px;
+    left: 64px;
+}
