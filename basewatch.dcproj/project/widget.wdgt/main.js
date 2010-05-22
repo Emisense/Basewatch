@@ -36,9 +36,13 @@ function load()
     }
     updateTimer();
     var apiUrl = widget.preferenceForKey(apiURLPrefKey);
+    if ( apiUrl == undefined && local.apiUrl != undefined )
+        apiUrl = local.apiUrl;
     if ( apiUrl != undefined )
         document.getElementById('apiURLTextField').value = apiUrl;
     var apiToken = widget.preferenceForKey(apiTokenPrefKey);
+    if ( apiToken == undefined && local.apiToken != undefined )
+        apiToken = local.apiToken;
     if ( apiToken != undefined )
         document.getElementById('apiTokenTextField').value = apiToken;
     var progressIndicatorObject = document.getElementById('progressIndicator').object;
