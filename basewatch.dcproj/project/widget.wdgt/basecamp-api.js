@@ -67,6 +67,7 @@ var BasecampAPI =
                 var id;
                 var name;
                 var active = false;
+                var company;
                 for ( var grandchildNodeIdx in childNode.childNodes )
                 {
                     var grandchildNode = childNode.childNodes[grandchildNodeIdx];
@@ -76,9 +77,18 @@ var BasecampAPI =
                         name = grandchildNode.firstChild.nodeValue;
                     else if ( grandchildNode.nodeName == 'status' )
                         active = grandchildNode.firstChild.nodeValue == "active";
+                    else if ( grandchildNode.nodeName == 'company' )
+                    {
+                        for ( var grandgrandchildNodeIdx in grandchildNode.childNodes )
+                        {
+                            var grandgrandchildNode = grandchildNode.childNodes[grandgrandchildNodeIdx];
+                            if ( grandgrandchildNode.nodeName == 'name' )
+                                company = grandgrandchildNode.firstChild.nodeValue;
+                        }
+                    }
                 }
                 if ( active )
-                    api.projects[id] = { id: id, name: name };
+                    api.projects[id] = { id: id, company: company, name: name };
             }
             callback( api, true );
         };
