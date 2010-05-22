@@ -165,13 +165,18 @@ function populateProjects()
                 var index = 1;
                 var selectedIndex = 0;
                 var persistedName = widget.preferenceForKey(projectNamePrefKey);
-                for ( var i in api.projects )
+                for ( var companyId in api.companies )
                 {
-                    var name = BasecampAPI.projects[i]['name'];
-                    options.push(name);
-                    if ( name == persistedName )
-                        selectedIndex = index;
-                    ++index;
+                    var company = api.companies[companyId];
+                    for ( var projectId in company.projects )
+                    {  
+                        var project = company.projects[projectId];
+                        var name = project.name;
+                        options.push(name);
+                        if ( name == persistedName )
+                            selectedIndex = index;
+                        ++index;
+                    }
                 }
                 projectPopups.setOptions(options);
                 projectPopups.setSelectedIndex(selectedIndex);

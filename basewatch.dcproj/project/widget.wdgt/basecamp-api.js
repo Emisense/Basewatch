@@ -3,14 +3,14 @@ var BasecampAPI =
     login: function( url, token, callback )
     {
         this.userId = null;
-        this.projects = null;
+        this.companies = null;
         
         this.url = url;
         this.token = token;
         
         this.refreshUserId( function( api, result ) {
             if ( result )
-                api.refreshProjects( function( api, result ) {
+                api.refreshCompaniesAndProjects( function( api, result ) {
                     callback( api, result );
                 } );
             else
@@ -50,11 +50,11 @@ var BasecampAPI =
         xhr.send(null);
     },
     
-    refreshProjects: function( callback )
+    refreshCompaniesAndProjects: function( callback )
     {
         var api = this;
-        this.projects = {};
-        var projectsURL = this.url+'/projects.xml';
+        this.companies = {};
+        var companiesURL = this.url+'/companies.xml';
         var xhr = new XMLHttpRequest();
         xhr.onload = function()
         {
@@ -62,12 +62,10 @@ var BasecampAPI =
             for ( var childNodeIdx in responseXML.firstChild.childNodes )
             {
                 var childNode = responseXML.firstChild.childNodes[childNodeIdx];
-                if ( childNode.nodeName != 'project' )
+                if ( childNode.nodeName != 'company' )
                     continue;
                 var id;
                 var name;
-                var active = false;
-                var company;
                 for ( var grandchildNodeIdx in childNode.childNodes )
                 {
                     var grandchildNode = childNode.childNodes[grandchildNodeIdx];
@@ -75,28 +73,62 @@ var BasecampAPI =
                         id = grandchildNode.firstChild.nodeValue;
                     else if ( grandchildNode.nodeName == 'name' )
                         name = grandchildNode.firstChild.nodeValue;
-                    else if ( grandchildNode.nodeName == 'status' )
-                        active = grandchildNode.firstChild.nodeValue == "active";
-                    else if ( grandchildNode.nodeName == 'company' )
+                }
+                api.companies[id] = { id:id, name:name, projects:{} };
+            }
+            var projectsURL = api.url+'/projects.xml';
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function()
+            {
+                var responseXML = xhr.responseXML;
+                for ( var childNodeIdx in responseXML.firstChild.childNodes )
+                {
+                    var childNode = responseXML.firstChild.childNodes[childNodeIdx];
+                    if ( childNode.nodeName != 'project' )
+                        continue;
+                    var id;
+                    var name;
+                    var active = false;
+                    var companyId;
+                    for ( var grandchildNodeIdx in childNode.childNodes )
                     {
-                        for ( var grandgrandchildNodeIdx in grandchildNode.childNodes )
+                        var grandchildNode = childNode.childNodes[grandchildNodeIdx];
+                        if ( grandchildNode.nodeName == 'id' )
+                            id = grandchildNode.firstChild.nodeValue;
+                        else if ( grandchildNode.nodeName == 'name' )
+                            name = grandchildNode.firstChild.nodeValue;
+                        else if ( grandchildNode.nodeName == 'status' )
+                            active = grandchildNode.firstChild.nodeValue == "active";
+                        else if ( grandchildNode.nodeName == 'company' )
                         {
-                            var grandgrandchildNode = grandchildNode.childNodes[grandgrandchildNodeIdx];
-                            if ( grandgrandchildNode.nodeName == 'name' )
-                                company = grandgrandchildNode.firstChild.nodeValue;
+                            for ( var grandgrandchildNodeIdx in grandchildNode.childNodes )
+                            {
+                                var grandgrandchildNode = grandchildNode.childNodes[grandgrandchildNodeIdx];
+                                if ( grandgrandchildNode.nodeName == 'id' )
+                                    companyId = grandgrandchildNode.firstChild.nodeValue;
+                            }
                         }
                     }
+                    if ( active )
+                        api.companies[companyId].projects[id] = { id: id, name: name };
                 }
-                if ( active )
-                    api.projects[id] = { id: id, company: company, name: name };
-            }
-            callback( api, true );
+                callback( api, true );
+            };
+            xhr.onerror = xhr.onabort = function( event )
+            {
+                callback( api, false );
+            };
+            xhr.open( 'GET', projectsURL, true, api.token, 'X' );
+            xhr.setRequestHeader( "Cache-Control", "no-cache" );
+            xhr.setRequestHeader( 'Accept', 'application/xml' );
+            xhr.setRequestHeader( 'Content-Type', 'application/xml' );
+            xhr.send(null);
         };
         xhr.onerror = xhr.onabort = function( event )
         {
             callback( api, false );
         };
-        xhr.open( 'GET', projectsURL, true, this.token, 'X' );
+        xhr.open( 'GET', companiesURL, true, this.token, 'X' );
         xhr.setRequestHeader( "Cache-Control", "no-cache" );
         xhr.setRequestHeader( 'Accept', 'application/xml' );
         xhr.setRequestHeader( 'Content-Type', 'application/xml' );
@@ -105,11 +137,15 @@ var BasecampAPI =
     
     projectNameToId: function( name )
     {
-        for ( var id in this.projects )
+        for ( var companyId in this.companies )
         {
-            var project = this.projects[id];
-            if ( project.name == name )
-                return project.id;
+            var company = this.companies[companyId];
+            for ( var projectId in company.projects )
+            {
+                var project = this.projects[id];
+                if ( project.name == name )
+                    return project.id;
+            }
         }
         return null;
     },
