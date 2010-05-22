@@ -17,6 +17,8 @@ var progressLevelOn = 1;
 var progressLevelWarn = 2;
 var progressLevelCrit = 3;
 
+var local = {};
+
 //
 // Function: load()
 // Called by HTML body element's onload event when the widget is ready to start
