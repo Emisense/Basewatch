@@ -432,11 +432,11 @@ function changeTimerTextField(event)
 {
     setFinishedSeconds( parseTimerTextField( timerTextField.value ) );
     updateTimer();
-    if ( !isTimerRunning() )
-    {
-        startTimer();
-        flashTimerTextField(false);
-    }
+//    if ( !isTimerRunning() )
+//    {
+//        startTimer();
+//        flashTimerTextField(false);
+//    }
 }
 
 function submitButtonClicked(event)
