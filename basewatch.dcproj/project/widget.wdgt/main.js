@@ -432,6 +432,7 @@ function changeTimerTextField(event)
 {
     setFinishedSeconds( parseTimerTextField( timerTextField.value ) );
     updateTimer();
+    commentTextarea.focus();
 //    if ( !isTimerRunning() )
 //    {
 //        startTimer();
