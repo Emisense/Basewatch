@@ -443,6 +443,12 @@ function changeTimerTextField(event)
 function submitButtonClicked(event)
 {
     var seconds = totalSeconds();
+    
+    // Round to the nearest .1 h
+    seconds = seconds / (6 * 60);
+    seconds = Math.ceil(seconds);
+    seconds = seconds * (6 * 60);
+    
     var comment = document.getElementById('commentTextarea').value;
     var projectId = document.getElementById('projectsPopup').object.getValue();
     if ( seconds > 0 && comment.length > 0 && projectId )

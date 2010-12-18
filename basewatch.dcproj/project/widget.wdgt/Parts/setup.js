@@ -15,9 +15,10 @@ var dashcodePartSpecs = {
     "submitButton": { "creationFunction": "CreateButton", "disabled": true, "leftImageWidth": 5, "onclick": "submitButtonClicked", "rightImageWidth": 5, "text": "Submit" },
     "text": { "text": "Basecamp URL:", "view": "DC.Text" },
     "text1": { "text": "Basecamp API Token:", "view": "DC.Text" },
-    "text2": { "text": "Emi-Basewatch 1.0.1", "view": "DC.Text" },
+    "text2": { "text": "Emi-Basewatch 1.0.2", "view": "DC.Text" },
     "text3": { "text": "Copyright © 2010 Peter Zion", "view": "DC.Text" }
 };
+
 
 
 
